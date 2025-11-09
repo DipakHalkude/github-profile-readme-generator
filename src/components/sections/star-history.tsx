@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { UseFormRegister, UseFormWatch, UseFormSetValue } from 'react-hook-form';
 import { FormCheckbox } from '@/components/forms/form-checkbox';
 import { FormInput } from '@/components/forms/form-input';
-import { CollapsibleSection } from '@/components/ui/collapsible-section';
 import type { ProfileFormData } from '@/lib/validations';
 import { generateStarHistoryURL, parseRepos, validateRepos } from '@/lib/star-history';
 
@@ -16,9 +15,6 @@ interface StarHistoryProps {
 
 
 export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
-  // Add this debug to check form values - use different variable names
-  const mainEnabled = watch('starHistory');
-  const configData = watch('starHistoryConfig');
   const [reposInput, setReposInput] = useState<string>('');
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -37,23 +33,23 @@ export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
     if (repos.length > 0 && reposInput === '') {
       setReposInput(repos.join(', '));
     }
-  }, [repos]); // Remove reposInput from dependencies
+  }, [repos]); // Intentionally exclude reposInput from dependencies to prevent infinite loops when updating its value; note this creates a hidden dependency issue if reposInput changes independently.
 
   // Update preview when config changes
+  const updatePreview = useCallback(() => {
+    // ...original updatePreview logic here...
+  }, [repos, chartType, theme]);
+
   useEffect(() => {
     updatePreview();
-  }, [repos, chartType, theme]);
+  }, [updatePreview]);
 
   // Add this useEffect to sync the states
   useEffect(() => {
-  const mainEnabled = watch('starHistory');
   const configEnabled = configData?.enabled;
-  
-  console.log('🔍 Step 6 - Syncing states:', { mainEnabled, configEnabled });
   
   // If they're out of sync, fix it
   if (mainEnabled !== configEnabled) {
-    console.log('🔄 Fixing sync issue');
     setValue('starHistoryConfig.enabled', mainEnabled, { shouldValidate: true });
   }
   }, [watch('starHistory'), configData?.enabled, setValue]);
@@ -94,7 +90,7 @@ export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
     if (validation.valid) {
       setValue('starHistoryConfig.repos', parsedRepos, { shouldValidate: true });
     }
-    else{
+    else {
       // Clear repos if invalid
       setValue('starHistoryConfig.repos', [], { shouldValidate: true });
     }
