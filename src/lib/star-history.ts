@@ -88,26 +88,18 @@ export const generateStarHistoryMarkdown = (config: {
   const altText = 'Star History Chart';
   const starHistoryUrl = `https://star-history.com/#${config.repos.join('&')}&${config.chartType}`;
 
-  // For auto theme, use picture tag with media queries
+  // For auto theme, use picture tag with media queries and make it clickable
   if (config.theme === 'auto') {
     return `
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="${url}&theme=dark" />
-  <source media="(prefers-color-scheme: light)" srcset="${url}" />
-  <img alt="${altText}" src="${url}" />
-</picture>`.trim();
+  <a href="${starHistoryUrl}" target="_blank" rel="noopener noreferrer">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="${url}&theme=dark" />
+      <source media="(prefers-color-scheme: light)" srcset="${url}" />
+      <img alt="${altText}" src="${url}" />
+    </picture>
+  </a>`.trim();
   }
 
   // For light/dark theme, use simple markdown image with link
   return `[![${altText}](${url})](${starHistoryUrl})`;
-};
-
-/**
- * Default Star History configuration
- */
-export const defaultStarHistoryConfig = {
-  enabled: false,
-  repos: [],
-  chartType: 'Date' as const,
-  theme: 'auto' as const
 };
