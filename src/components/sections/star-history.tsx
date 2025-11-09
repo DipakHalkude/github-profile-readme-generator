@@ -52,11 +52,8 @@ export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
   useEffect(() => {
   const configEnabled = configData?.enabled;
   
-  console.log('🔍 Step 6 - Syncing states:', { mainEnabled, configEnabled });
-  
   // If they're out of sync, fix it
   if (mainEnabled !== configEnabled) {
-    console.log('🔄 Fixing sync issue');
     setValue('starHistoryConfig.enabled', mainEnabled, { shouldValidate: true });
   }
   }, [watch('starHistory'), configData?.enabled, setValue]);
