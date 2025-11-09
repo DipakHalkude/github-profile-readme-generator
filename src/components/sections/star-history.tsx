@@ -15,8 +15,6 @@ interface StarHistoryProps {
 
 
 export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
-  const mainEnabled = watch('starHistory');
-  const configData = watch('starHistoryConfig');
   const [reposInput, setReposInput] = useState<string>('');
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
