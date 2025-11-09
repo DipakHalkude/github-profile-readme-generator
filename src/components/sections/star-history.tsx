@@ -37,7 +37,7 @@ export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
     if (repos.length > 0 && reposInput === '') {
       setReposInput(repos.join(', '));
     }
-  }, [repos]); // Remove reposInput from dependencies
+  }, [repos]); // Intentionally exclude reposInput from dependencies to prevent infinite loops when updating its value; note this creates a hidden dependency issue if reposInput changes independently.
 
   // Update preview when config changes
   useEffect(() => {
