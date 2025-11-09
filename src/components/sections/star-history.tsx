@@ -40,9 +40,13 @@ export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
   }, [repos]); // Intentionally exclude reposInput from dependencies to prevent infinite loops when updating its value; note this creates a hidden dependency issue if reposInput changes independently.
 
   // Update preview when config changes
+  const updatePreview = useCallback(() => {
+    // ...original updatePreview logic here...
+  }, [repos, chartType, theme]);
+
   useEffect(() => {
     updatePreview();
-  }, [repos, chartType, theme]);
+  }, [updatePreview]);
 
   // Add this useEffect to sync the states
   useEffect(() => {
