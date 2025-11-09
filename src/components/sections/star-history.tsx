@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { UseFormRegister, UseFormWatch, UseFormSetValue } from 'react-hook-form';
 import { FormCheckbox } from '@/components/forms/form-checkbox';
 import { FormInput } from '@/components/forms/form-input';
-import { CollapsibleSection } from '@/components/ui/collapsible-section';
 import type { ProfileFormData } from '@/lib/validations';
 import { generateStarHistoryURL, parseRepos, validateRepos } from '@/lib/star-history';
 
