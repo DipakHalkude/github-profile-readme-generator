@@ -50,7 +50,6 @@ export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
 
   // Add this useEffect to sync the states
   useEffect(() => {
-  const mainEnabled = watch('starHistory');
   const configEnabled = configData?.enabled;
   
   console.log('🔍 Step 6 - Syncing states:', { mainEnabled, configEnabled });
