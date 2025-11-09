@@ -15,7 +15,6 @@ interface StarHistoryProps {
 
 
 export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
-  // Add this debug to check form values - use different variable names
   const mainEnabled = watch('starHistory');
   const configData = watch('starHistoryConfig');
   const [reposInput, setReposInput] = useState<string>('');
