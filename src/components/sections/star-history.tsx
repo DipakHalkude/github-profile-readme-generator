@@ -90,7 +90,7 @@ export function StarHistory({ register, watch, setValue }: StarHistoryProps) {
     if (validation.valid) {
       setValue('starHistoryConfig.repos', parsedRepos, { shouldValidate: true });
     }
-    else{
+    else {
       // Clear repos if invalid
       setValue('starHistoryConfig.repos', [], { shouldValidate: true });
     }
